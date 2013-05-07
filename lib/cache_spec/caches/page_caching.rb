@@ -3,35 +3,35 @@ module CacheSpec::Caches
 
     def self.included(klass) #:nodoc:
       klass.class_eval do
-        @@test_page_cached = [] # keep track of what gets cached
-        @@test_page_expired = [] # keeg track of what gets expired
-        cattr_accessor :test_page_cached
-        cattr_accessor :test_page_expired
+        cattr_accessor :cached_pages, :expired_pages
+        @@cached_pages = []; @@expired_pages = []
       end
       klass.extend ClassMethods
       klass.send :include, InstanceMethods
     end
 
     module ClassMethods
+      # Step 1: get the path working, develop the sign
+      # Step 2: make it able to verify the content inside cache
       def cache_page(content, path)
-        test_page_cached << path
+        cached_pages << path
       end
 
       def expire_page(path)
-        test_page_expired << path
+        expired_pages << path
       end
 
       def cached?(path)
-        test_page_cached.include?(path)
+        cached_pages.include?(path)
       end
 
       def expired?(path)
-        test_page_expired.include?(path)
+        expired_pages.include?(path)
       end
 
       def reset_page_cache!
-        test_page_cached.clear
-        test_page_expired.clear
+        cached_pages.clear
+        expired_pages.clear
       end
     end
 
@@ -39,18 +39,18 @@ module CacheSpec::Caches
       # See if the page caching mechanism has cached a given url. This takes
       # the same options as +url_for+.
       def cached?(options = {})
-        self.class.cached?(test_cache_url(options))
+        self.class.cached?(cache_url(options))
       end
 
       # See if the page caching mechanism has expired a given url. This
       # takes the same options as +url_for+.
       def expired?(options = {})
-        self.class.expired?(test_cache_url(options))
+        self.class.expired?(cache_url(options))
       end
 
       private
 
-      def test_cache_url(options) #:nodoc:
+      def cache_url(options) #:nodoc:
         url_for(options.merge({ :only_path => true, :skip_relative_url_root => true }))
       end
     end

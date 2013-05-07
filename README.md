@@ -1,6 +1,5 @@
 # CacheSpec
-
-TODO: Write a gem description
+Model level caching framework for Ruby on Rails 3 or up.
 
 ## Installation
 
@@ -15,6 +14,12 @@ And then execute:
 Or install it yourself as:
 
     $ gem install cache_spec
+
+## Development Tasks
+This gem is still under development
+
+  - TDD page_caching (spec, key value store)
+  - Polish patterns, add action_caching, fragment_caching, and so forth
 
 ## Usage
 
