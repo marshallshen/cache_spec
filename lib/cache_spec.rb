@@ -1,5 +1,6 @@
 require "cache_spec/version"
 
 module CacheSpec
-  # Your code goes here...
+  extend Config
+  extend Store
 end
