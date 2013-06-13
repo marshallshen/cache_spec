@@ -1,15 +1,14 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cache_spec/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "cache_spec"
-  spec.version       = CacheSpec::VERSION
+  spec.version       = '0.0.1'
   spec.authors       = ["Marshall Shen"]
   spec.email         = ["mshen@groupon.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = 'A simple test framwork for Rails cache'
+  spec.summary       = 'A simple test framwork for Rails cache'
   spec.homepage      = ""
   spec.license       = "MIT"
 
