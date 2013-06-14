@@ -1,3 +1,5 @@
+require 'cache_spec/store'
+
 module CacheSpec
   def self.setup
     # Turn on caching
@@ -13,39 +15,25 @@ module CacheSpec
     end
   end
 
-  class Store
-    # TODO: build up mock cache stores
-    attr_reader :cached, :expired, :data
-    def initialize(options={})
-      @data = {}
-      @cached = []
-      @expired = []
+  module Matchers
+    class CachePage
+      def initialize(url)
+        @url = url
+        ActionController::Base.reset_page_cache!
+      end
+
+      def matches?(block)
+        block.call
+        ActionController::Base.cached?(@url)
+      end
+
+      def failure_message_for_should
+        "Expected to cache the page #{@url.inspect}"
+      end
+
+      def failure_message_for_should_not
+        "Expected not to cache the page #{@url.inspect}"
+      end
     end
-
-    def reset #:nodoc
-      [@data, @cached, @expired].map(&:clear)
-    end
-
-    def read_entry(name, options = nil) #:nodoc
-      @data[name]
-    end
-
-    def write_entry(name, value, options = nil) # :nodoc
-      @data[name] = value
-      @cached << name
-    end
-
-    def expire_entry(name, options = nil) # :nodoc
-      @expired << name
-    end
-
-    def cached?(name)
-      @cached.include?(name)
-    end
-
-  end
-
-  class Matchers
-    # Implement matchers
   end
 end

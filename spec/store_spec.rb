@@ -1,10 +1,4 @@
-require_relative '../lib/cache_spec'
-
-# RSpec.configure do |config|
-#   config.before do
-#     CacheSpec.reset
-#   end
-# end
+require 'spec_helper'
 
 describe CacheSpec::Store do
   it "has cached store" do
