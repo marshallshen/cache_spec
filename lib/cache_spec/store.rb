@@ -1,5 +1,5 @@
 module CacheSpec
-  class Store
+  class Store < ActiveSupport::Cache::Store
     attr_reader :cached, :expired, :data
 
     def initialize(options={})

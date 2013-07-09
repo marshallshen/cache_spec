@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe CacheSpec::Store do
   it "has cached store" do
-    # format [{'foo' => 'bar'}, {'boo' => 'far'}]
     subject.cached.should == []
   end
+
   it "has expired store" do
     subject.expired.should == []
   end
@@ -12,8 +12,6 @@ describe CacheSpec::Store do
   it "stores data in a hash" do
     subject.data.should == {}
   end
-
-  it "can reset cache"
 
   describe "basic operations" do
     before do
